@@ -1,5 +1,8 @@
 const express = require('express')
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
+
+const userRoutes = require('./routes/userRoutes')
 
 const app = express()
 
@@ -8,8 +11,6 @@ app.use(bodyParser.json({
     limit: '10mb'
 }))
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/api/v1/users', userRoutes)
 
-const port = 3000
-app.listen(port, () => {
-    console.log(`Running on port ${port}`)
-})
+module.exports = app 

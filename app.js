@@ -15,8 +15,16 @@ app.use(
         limit: '10mb',
     })
 );
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tours', tourRoutes);
+
+app.all('*', (req, res, next) => {
+    res.status(404).send({
+        status: 'fail',
+        message: `Can't find ${req.originalUrl} on this server `,
+    });
+});
 
 module.exports = app;
